@@ -1,0 +1,5 @@
+## Connect4
+
+This code is a module for the framework of Connect4 on the STM32L4. This project
+aims tofirst create the framework for integrating the game onto the board along
+with an external LCD with audio.
