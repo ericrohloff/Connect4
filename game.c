@@ -81,6 +81,7 @@ int check_win(int row, int col, int board[ROWS][COLS])
         colMax = col + 3;
     }
 
+    adjacent = 0;
     while (colChecker <= colMax)
     {
         if (board[row][colChecker] == player)
@@ -99,44 +100,41 @@ int check_win(int row, int col, int board[ROWS][COLS])
     }
 
     // Check \ Diagonal
-    int minLeft = 0;
+    int minLeft = 3;
     int maxRight = 3;
     if (row < col)
     {
-        minLeft = row - 3;
-        if (minLeft < 0)
+        if (row - minLeft < 0)
         {
-            minLeft = 0;
+            minLeft = row;
         }
     }
     else
     {
-        minLeft = col - 3;
-        if (minLeft < 0)
+        if (col - minLeft < 0)
         {
-            minLeft = 0;
+            minLeft = col;
         }
     }
     if (ROWS - row < COLS - col)
     {
-        maxRight = row + 3;
-        if (maxRight > ROWS - 1)
+        if (row + maxRight > ROWS - 1)
         {
-            maxRight = ROWS - 1;
+            maxRight = ROWS - row - 1;
         }
     }
     else
     {
-        maxRight = col + 3;
-        if (maxRight > COLS - 1)
+        if (col + maxRight > COLS - 1)
         {
-            maxRight = COLS - 1;
+            maxRight = COLS - col - 1;
         }
     }
 
     rowChecker = row - minLeft;
     colChecker = col - minLeft;
     rowMax = row + maxRight;
+    adjacent = 0;
 
     while (rowChecker <= rowMax)
     {
@@ -157,36 +155,34 @@ int check_win(int row, int col, int board[ROWS][COLS])
     }
 
     // Check / Diagonal
+    minLeft = 3;
+    maxRight = 3;
     if (ROWS - row - 1 < col)
     {
-        minLeft = row + 3;
-        if (minLeft > ROWS - 1)
+        if (minLeft + row > ROWS - 1)
         {
-            minLeft = ROWS - 1;
+            minLeft = ROWS - row - 1;
         }
     }
     else
     {
-        minLeft = col - 3;
-        if (minLeft < 0)
+        if (col - minLeft < 0)
         {
-            minLeft = 0;
+            minLeft = col;
         }
     }
     if (row < COLS - col - 1)
     {
-        maxRight = row - 3;
-        if (maxRight < 0)
+        if (row - maxRight < 0)
         {
-            maxRight = 0;
+            maxRight = row;
         }
     }
     else
     {
-        maxRight = col + 3;
-        if (maxRight > COLS - 1)
+        if (maxRight + col > COLS - 1)
         {
-            maxRight = COLS - 1;
+            maxRight = COLS - col - 1;
         }
     }
 
@@ -194,6 +190,7 @@ int check_win(int row, int col, int board[ROWS][COLS])
     colChecker = col - minLeft;
     rowMax = row - maxRight;
 
+    adjacent = 0;
     while (rowChecker >= rowMax)
     {
         if (board[rowChecker][colChecker] == player)
@@ -211,8 +208,6 @@ int check_win(int row, int col, int board[ROWS][COLS])
         rowChecker--;
         colChecker++;
     }
-
-    return 0;
 }
 
 // Method to place the players piece onto the board

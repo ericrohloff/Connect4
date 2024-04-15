@@ -2,11 +2,11 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/eric/connect4/game'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100003554, symSize: 0x90 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100003524, symSize: 0x90 }
   - { offsetInCU: 0x4D, offset: 0x4D, size: 0x8, addend: 0x0, symName: _board, symBinAddr: 0x100008000, symSize: 0x0 }
-  - { offsetInCU: 0x6F, offset: 0x6F, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100003554, symSize: 0x90 }
-  - { offsetInCU: 0xBD, offset: 0xBD, size: 0x8, addend: 0x0, symName: _disp_board, symObjAddr: 0x90, symBinAddr: 0x1000035E4, symSize: 0xBC }
-  - { offsetInCU: 0x119, offset: 0x119, size: 0x8, addend: 0x0, symName: _check_win, symObjAddr: 0x14C, symBinAddr: 0x1000036A0, symSize: 0x58C }
-  - { offsetInCU: 0x1CD, offset: 0x1CD, size: 0x8, addend: 0x0, symName: _set_piece, symObjAddr: 0x6D8, symBinAddr: 0x100003C2C, symSize: 0xFC }
-  - { offsetInCU: 0x21F, offset: 0x21F, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x7D4, symBinAddr: 0x100003D28, symSize: 0x22C }
+  - { offsetInCU: 0x6F, offset: 0x6F, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100003524, symSize: 0x90 }
+  - { offsetInCU: 0xBD, offset: 0xBD, size: 0x8, addend: 0x0, symName: _disp_board, symObjAddr: 0x90, symBinAddr: 0x1000035B4, symSize: 0xBC }
+  - { offsetInCU: 0x119, offset: 0x119, size: 0x8, addend: 0x0, symName: _check_win, symObjAddr: 0x14C, symBinAddr: 0x100003670, symSize: 0x5BC }
+  - { offsetInCU: 0x1CD, offset: 0x1CD, size: 0x8, addend: 0x0, symName: _set_piece, symObjAddr: 0x708, symBinAddr: 0x100003C2C, symSize: 0xFC }
+  - { offsetInCU: 0x21F, offset: 0x21F, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x804, symBinAddr: 0x100003D28, symSize: 0x22C }
 ...
