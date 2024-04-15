@@ -25,27 +25,15 @@ void init_board()
 }
 
 // Method to display baord onto the LCD screen
-void disp_board()
+void disp_board(int board[ROWS][COLS])
 {
-    // TODO: Implement this
-}
-
-// Method to place the players piece onto the board
-void set_piece(int col, int player, int board[ROWS][COLS])
-{
-    int lowRow = ROWS - 1;
-    while (lowRow >= 0 && board[lowRow][col] == 0)
+    for (int i = 0; i < ROWS; i++)
     {
-        lowRow--;
-    }
-    if (lowRow >= 0)
-    {
-        board[lowRow][col] = player;
-    }
-    else
-    {
-        // This will happen if the column is full, will display to the STM32L4
-        // display, with color and sound effect.
+        for (int j = 0; j < COLS; j++)
+        {
+            printf("%d ", board[i][j]);
+        }
+        printf("\n");
     }
 }
 
@@ -223,4 +211,60 @@ int check_win(int row, int col, int board[ROWS][COLS])
         rowChecker--;
         colChecker++;
     }
+
+    return 0;
+}
+
+// Method to place the players piece onto the board
+int set_piece(int col, int player, int board[ROWS][COLS])
+{
+    int lowRow = ROWS - 1;
+
+    // Find the first available row in the column
+    while (lowRow >= 0 && board[lowRow][col] != 0)
+    {
+        lowRow--;
+    }
+    if (lowRow >= 0)
+    {
+        board[lowRow][col] = player;
+    }
+    else
+    {
+        // Column is full, handle this case appropriately (e.g., notify the user)
+        printf("Column %d is full. Try a different column.\n", col);
+    }
+
+    return check_win(lowRow, col, board);
+}
+
+int main()
+{
+    init_board();
+    printf("%d", set_piece(3, 1, board));
+    printf("\n");
+    printf("%d", set_piece(2, 2, board));
+    printf("\n");
+    printf("%d", set_piece(2, 1, board));
+    printf("\n");
+    printf("%d", set_piece(1, 2, board));
+    printf("\n");
+    printf("%d", set_piece(1, 2, board));
+    printf("\n");
+    printf("%d", set_piece(1, 1, board));
+    printf("\n");
+    printf("%d", set_piece(0, 2, board));
+    printf("\n");
+    printf("%d", set_piece(0, 2, board));
+    printf("\n");
+    printf("%d", set_piece(0, 2, board));
+    printf("\n");
+    printf("%d", set_piece(0, 1, board));
+    printf("\n");
+
+    // printf(set_piece(1, 1, board));
+    // printf(set_piece(0, 1, board));
+    // printf(set_piece(0, 1, board));
+    // printf(set_piece(0, 1, board));
+    disp_board(board);
 }
