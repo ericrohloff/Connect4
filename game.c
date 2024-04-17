@@ -37,83 +37,187 @@ void disp_board(int board[ROWS][COLS])
     }
 }
 
-int check_win(int row, int col)
+int check_win(int row, int col, int board[ROWS][COLS])
 {
     int player = board[row][col];
+    int rowChecker = row;
+    int colChecker = col;
+    int adjacent = 0;
+    int colMax = 6;
+    int rowMax = 6;
+    int distToLeft = col;
+    int distToRight = COLS - col - 1;
+    int distToTop = row;
+    int distToBot = ROWS - row - 1;
 
-    // Check horizontal
-    int count = 1;
-
-    // Check left
-    for (int i = col - 1; i >= 0 && board[row][i] == player; i--)
+    // Check Vertical
+    if (row <= 2)
     {
-        count++;
+        while (rowChecker <= 5)
+        {
+            if (board[rowChecker][col] == player)
+            {
+                adjacent++;
+                rowChecker++;
+                if (adjacent == 4)
+                {
+                    return player;
+                }
+            }
+            else
+            {
+                rowChecker = row;
+                adjacent = 0;
+                break;
+            }
+        }
     }
 
-    // Check right
-    for (int i = col + 1; i < COLS && board[row][i] == player; i++)
+    // Check Horizontal
+    if (col > 2)
     {
-        count++;
+        colChecker = col - 3;
+        colMax = 6;
+    }
+    else
+    {
+        colChecker = 0;
+        colMax = col + 3;
     }
 
-    if (count >= 4)
+    adjacent = 0;
+    while (colChecker <= colMax)
     {
-        return player;
+        if (board[row][colChecker] == player)
+        {
+            adjacent++;
+            if (adjacent == 4)
+            {
+                return player;
+            }
+        }
+        else
+        {
+            adjacent = 0;
+        }
+        colChecker++;
     }
 
-    // Check vertical
-    count = 1;
-
-    // Check downward
-    for (int i = row + 1; i < ROWS && board[i][col] == player; i++)
+    // Check \ Diagonal
+    int leftOffset = 3;
+    int rightOffset = 3;
+    int closest = 0;
+    if (distToLeft < distToTop)
     {
-        count++;
+        closest = distToLeft;
+    }
+    else
+    {
+        closest = distToTop;
+    }
+    if (closest > 3)
+    {
+        leftOffset = 3;
+    }
+    else
+    {
+        leftOffset = closest;
+    }
+    if (distToRight < distToBot)
+    {
+        closest = distToRight;
+    }
+    else
+    {
+        closest = distToBot;
+    }
+    if (closest > 3)
+    {
+        rightOffset = 3;
+    }
+    else
+    {
+        rightOffset = closest;
+    }
+    rowChecker = row - leftOffset;
+    colChecker = col - leftOffset;
+    rowMax = row + rightOffset;
+    adjacent = 0;
+
+    while (rowChecker <= rowMax)
+    {
+        if (board[rowChecker][colChecker] == player)
+        {
+            adjacent++;
+            if (adjacent == 4)
+            {
+                return player;
+            }
+        }
+        else
+        {
+            adjacent = 0;
+        }
+        rowChecker++;
+        colChecker++;
     }
 
-    if (count >= 4)
+    // Check / Diagonal
+    if (distToLeft < distToBot)
     {
-        return player;
+        closest = distToLeft;
     }
-
-    // Check diagonal from top-left to bottom-right
-    count = 1;
-
-    // Check top-left
-    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0 && board[i][j] == player; i--, j--)
+    else
     {
-        count++;
+        closest = distToBot;
     }
-
-    // Check bottom-right
-    for (int i = row + 1, j = col + 1; i < ROWS && j < COLS && board[i][j] == player; i++, j++)
+    if (closest > 3)
     {
-        count++;
+        leftOffset = 3;
     }
-
-    if (count >= 4)
+    else
     {
-        return player;
+        leftOffset = closest;
     }
-
-    count = 1;
-
-    // Check top-right
-    for (int i = row - 1, j = col + 1; i >= 0 && j < COLS && board[i][j] == player; i--, j++)
+    if (distToRight < distToTop)
     {
-        count++;
+        closest = distToRight;
     }
-
-    // Check bottom-left
-    for (int i = row + 1, j = col - 1; i < ROWS && j >= 0 && board[i][j] == player; i++, j--)
+    else
     {
-        count++;
+        closest = distToTop;
     }
-
-    if (count >= 4)
+    if (closest > 3)
     {
-        return player;
+        rightOffset = 3;
     }
+    else
+    {
+        rightOffset = closest;
+    }
+    rowChecker = row + leftOffset;
+    colChecker = col - leftOffset;
+    rowMax = row - rightOffset;
+    adjacent = 0;
 
+    while (rowChecker >= rowMax)
+    {
+        // printf("%d", board[rowChecker][colChecker]);
+        if (board[rowChecker][colChecker] == player)
+        {
+            adjacent++;
+            if (adjacent == 4)
+            {
+                return player;
+            }
+        }
+        else
+        {
+            adjacent = 0;
+        }
+        rowChecker--;
+        colChecker++;
+    }
     return 0;
 }
 
@@ -137,7 +241,7 @@ int set_piece(int col, int player, int board[ROWS][COLS])
         printf("Column %d is full. Try a different column.\n", col);
     }
 
-    return check_win(lowRow, col);
+    return check_win(lowRow, col, board);
 }
 
 int main()
