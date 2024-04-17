@@ -37,177 +37,84 @@ void disp_board(int board[ROWS][COLS])
     }
 }
 
-int check_win(int row, int col, int board[ROWS][COLS])
+int check_win(int row, int col)
 {
     int player = board[row][col];
-    int rowChecker = row;
-    int colChecker = col;
-    int adjacent = 0;
-    int colMax = 6;
-    int rowMax = 6;
 
-    // Check Vertical
-    if (row <= 2)
+    // Check horizontal
+    int count = 1;
+
+    // Check left
+    for (int i = col - 1; i >= 0 && board[row][i] == player; i--)
     {
-        while (rowChecker <= 5)
-        {
-            if (board[rowChecker][col] == player)
-            {
-                adjacent++;
-                rowChecker++;
-                if (adjacent == 4)
-                {
-                    return player;
-                }
-            }
-            else
-            {
-                rowChecker = row;
-                adjacent = 0;
-                break;
-            }
-        }
+        count++;
     }
 
-    // Check Horizontal
-    if (col > 2)
+    // Check right
+    for (int i = col + 1; i < COLS && board[row][i] == player; i++)
     {
-        colChecker = col - 3;
-        colMax = 6;
-    }
-    else
-    {
-        colChecker = 0;
-        colMax = col + 3;
+        count++;
     }
 
-    adjacent = 0;
-    while (colChecker <= colMax)
+    if (count >= 4)
     {
-        if (board[row][colChecker] == player)
-        {
-            adjacent++;
-            if (adjacent == 4)
-            {
-                return player;
-            }
-        }
-        else
-        {
-            adjacent = 0;
-        }
-        colChecker++;
+        return player;
     }
 
-    // Check \ Diagonal
-    int minLeft = 3;
-    int maxRight = 3;
-    if (row < col)
+    // Check vertical
+    count = 1;
+
+    // Check downward
+    for (int i = row + 1; i < ROWS && board[i][col] == player; i++)
     {
-        if (row - minLeft < 0)
-        {
-            minLeft = row;
-        }
-    }
-    else
-    {
-        if (col - minLeft < 0)
-        {
-            minLeft = col;
-        }
-    }
-    if (ROWS - row < COLS - col)
-    {
-        if (row + maxRight > ROWS - 1)
-        {
-            maxRight = ROWS - row - 1;
-        }
-    }
-    else
-    {
-        if (col + maxRight > COLS - 1)
-        {
-            maxRight = COLS - col - 1;
-        }
+        count++;
     }
 
-    rowChecker = row - minLeft;
-    colChecker = col - minLeft;
-    rowMax = row + maxRight;
-    adjacent = 0;
-
-    while (rowChecker <= rowMax)
+    if (count >= 4)
     {
-        if (board[rowChecker][colChecker] == player)
-        {
-            adjacent++;
-            if (adjacent == 4)
-            {
-                return player;
-            }
-        }
-        else
-        {
-            adjacent = 0;
-        }
-        rowChecker++;
-        colChecker++;
+        return player;
     }
 
-    // Check / Diagonal
-    minLeft = 3;
-    maxRight = 3;
-    if (ROWS - row - 1 < col)
+    // Check diagonal from top-left to bottom-right
+    count = 1;
+
+    // Check top-left
+    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0 && board[i][j] == player; i--, j--)
     {
-        if (minLeft + row > ROWS - 1)
-        {
-            minLeft = ROWS - row - 1;
-        }
-    }
-    else
-    {
-        if (col - minLeft < 0)
-        {
-            minLeft = col;
-        }
-    }
-    if (row < COLS - col - 1)
-    {
-        if (row - maxRight < 0)
-        {
-            maxRight = row;
-        }
-    }
-    else
-    {
-        if (maxRight + col > COLS - 1)
-        {
-            maxRight = COLS - col - 1;
-        }
+        count++;
     }
 
-    rowChecker = row + minLeft;
-    colChecker = col - minLeft;
-    rowMax = row - maxRight;
-
-    adjacent = 0;
-    while (rowChecker >= rowMax)
+    // Check bottom-right
+    for (int i = row + 1, j = col + 1; i < ROWS && j < COLS && board[i][j] == player; i++, j++)
     {
-        if (board[rowChecker][colChecker] == player)
-        {
-            adjacent++;
-            if (adjacent == 4)
-            {
-                return player;
-            }
-        }
-        else
-        {
-            adjacent = 0;
-        }
-        rowChecker--;
-        colChecker++;
+        count++;
     }
+
+    if (count >= 4)
+    {
+        return player;
+    }
+
+    count = 1;
+
+    // Check top-right
+    for (int i = row - 1, j = col + 1; i >= 0 && j < COLS && board[i][j] == player; i--, j++)
+    {
+        count++;
+    }
+
+    // Check bottom-left
+    for (int i = row + 1, j = col - 1; i < ROWS && j >= 0 && board[i][j] == player; i++, j--)
+    {
+        count++;
+    }
+
+    if (count >= 4)
+    {
+        return player;
+    }
+
+    return 0;
 }
 
 // Method to place the players piece onto the board
@@ -230,36 +137,31 @@ int set_piece(int col, int player, int board[ROWS][COLS])
         printf("Column %d is full. Try a different column.\n", col);
     }
 
-    return check_win(lowRow, col, board);
+    return check_win(lowRow, col);
 }
 
 int main()
 {
     init_board();
-    printf("%d", set_piece(3, 1, board));
-    printf("\n");
-    printf("%d", set_piece(2, 2, board));
-    printf("\n");
-    printf("%d", set_piece(2, 1, board));
-    printf("\n");
-    printf("%d", set_piece(1, 2, board));
+    printf("%d", set_piece(0, 1, board));
     printf("\n");
     printf("%d", set_piece(1, 2, board));
     printf("\n");
     printf("%d", set_piece(1, 1, board));
     printf("\n");
-    printf("%d", set_piece(0, 2, board));
+    printf("%d", set_piece(2, 2, board));
     printf("\n");
-    printf("%d", set_piece(0, 2, board));
+    printf("%d", set_piece(2, 2, board));
     printf("\n");
-    printf("%d", set_piece(0, 2, board));
+    printf("%d", set_piece(2, 1, board));
     printf("\n");
-    printf("%d", set_piece(0, 1, board));
+    printf("%d", set_piece(3, 2, board));
     printf("\n");
-
-    // printf(set_piece(1, 1, board));
-    // printf(set_piece(0, 1, board));
-    // printf(set_piece(0, 1, board));
-    // printf(set_piece(0, 1, board));
+    printf("%d", set_piece(3, 2, board));
+    printf("\n");
+    printf("%d", set_piece(3, 2, board));
+    printf("\n");
+    printf("%d", set_piece(3, 1, board));
+    printf("\n");
     disp_board(board);
 }
