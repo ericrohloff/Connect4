@@ -2,11 +2,12 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/eric/connect4/game'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100003594, symSize: 0x90 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100002778, symSize: 0x90 }
   - { offsetInCU: 0x4D, offset: 0x4D, size: 0x8, addend: 0x0, symName: _board, symBinAddr: 0x100008000, symSize: 0x0 }
-  - { offsetInCU: 0x6F, offset: 0x6F, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100003594, symSize: 0x90 }
-  - { offsetInCU: 0xBD, offset: 0xBD, size: 0x8, addend: 0x0, symName: _disp_board, symObjAddr: 0x90, symBinAddr: 0x100003624, symSize: 0xBC }
-  - { offsetInCU: 0x119, offset: 0x119, size: 0x8, addend: 0x0, symName: _check_win, symObjAddr: 0x14C, symBinAddr: 0x1000036E0, symSize: 0x548 }
-  - { offsetInCU: 0x215, offset: 0x215, size: 0x8, addend: 0x0, symName: _set_piece, symObjAddr: 0x694, symBinAddr: 0x100003C28, symSize: 0xFC }
-  - { offsetInCU: 0x267, offset: 0x267, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x790, symBinAddr: 0x100003D24, symSize: 0x230 }
+  - { offsetInCU: 0x6F, offset: 0x6F, size: 0x8, addend: 0x0, symName: _init_board, symObjAddr: 0x0, symBinAddr: 0x100002778, symSize: 0x90 }
+  - { offsetInCU: 0xBD, offset: 0xBD, size: 0x8, addend: 0x0, symName: _draw_logo, symObjAddr: 0x90, symBinAddr: 0x100002808, symSize: 0x104 }
+  - { offsetInCU: 0xD2, offset: 0xD2, size: 0x8, addend: 0x0, symName: _disp_board, symObjAddr: 0x194, symBinAddr: 0x10000290C, symSize: 0x174 }
+  - { offsetInCU: 0x12E, offset: 0x12E, size: 0x8, addend: 0x0, symName: _check_win, symObjAddr: 0x308, symBinAddr: 0x100002A80, symSize: 0x548 }
+  - { offsetInCU: 0x22A, offset: 0x22A, size: 0x8, addend: 0x0, symName: _set_piece, symObjAddr: 0x850, symBinAddr: 0x100002FC8, symSize: 0xFC }
+  - { offsetInCU: 0x281, offset: 0x281, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x94C, symBinAddr: 0x1000030C4, symSize: 0x130 }
 ...
